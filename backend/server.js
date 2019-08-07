@@ -1,48 +1,50 @@
-const mongoose = require('mongoose');
+// import required libraries
 const express = require('express');
-var cors = require('cors')
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+var cors = require('cors');
 const logger = require('morgan');
-const Data = require(./data');
+const axios = require('axios');
 
-// set port to listen on
+// import database mode
+const data = require('./data');
+
+// initialize port for backend
 const API_PORT = 3001;
 
-const app = express();
-app.use(cors());
-const router = express.Router();
+// initialize express middleware 
+var app = express();
+var router = express.Router();
 
-//  MongoDB path
-const dbPath = '';
+// initialize mongoose - MongoDB connection
+mongoDBUrl='';
+mongoose.connect(mongoDBUrl, {useNewUrlParser: true });
 
-// connect to MongoDB database
-mongoose.connect(dbPath, {useNewUrlParser: true });
-
+// check for errors in mongoose connection
 let db = mongoose.connection;
+db.once('open', () => console.log('connected to database'));
+db.on ('error', console.error.bind(console, 'error connecting to database'))
 
-db.once('open', () => console.log('connected to the database'));
-
-// check for connection errors
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-// set up bodyParser and morgan logger middleware
+// initialize app level middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(logger('dev'));
+app.use(cors());
+app.use(morgan('dev'));
 
-// get method
-router.get('/getData', function (req, res) {
+// [C]reate - create method
+router.post('/createData', function (req, res) {
     
 })
 
-// update method
+// [R]ead - get method
 
-//create method
+// [U]pdate - update method
 
-// delete method
+// [D]elete- delete method
 
-// connect router to /api path
+// connect router to '/api' path
 app.use('/api', router);
 
-// launch backend into port
-app.listen(API_PORT, () => console.log('Backend is listening on PORT'+API_PORT));
+// connect server to port
+app.listen(API_PORT, ()=> console.log('listening on PORT:'+API_PORT));
+
