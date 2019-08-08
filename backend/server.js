@@ -7,7 +7,7 @@ const logger = require('morgan');
 const axios = require('axios');
 
 // import database mode
-const data = require('./data');
+var Comp = require('./data');
 
 // initialize port for backend
 const API_PORT = 3001;
@@ -33,14 +33,69 @@ app.use(morgan('dev'));
 
 // [C]reate - create method
 router.post('/createData', function (req, res) {
-    
-})
+    const { feet, inches, 
+    leanWeight, leanAthlete, leanAthletePos, leanAthleteImgPath,
+    athWeight, athAthlete, athAthletePos, athAthleteImgPath, 
+    bulkWeight, bulkAthlete, bulkAthletePos, bulkAthleteImgPath } = req.body;
+
+    let comp = new Comp();
+
+    // fill in document data fields from request data sent from Front End
+    comp.height = parseInt(feet+'.'+inches);
+    comp.type.lean.weight = leanWeight;
+    comp.type.lean.athlete.name= leanAthlete;
+    comp.type.lean.athlete.position= leanAthletePos;
+    comp.type.lean.athlete.imagePath= leanAthleteImgPath;
+    comp.type.athletic.weight = athWeight;
+    comp.type.athletic.athlete.name= athAthlete;
+    comp.type.athletic.athlete.position= athAthletePos;
+    comp.type.athletic.athlete.imagePath= athAthleteImgPath;
+    comp.type.bulky.weight = bulkWeight;
+    comp.type.bulky.athlete.name= bulkAthlete;
+    comp.type.bulky.athlete.position= bulkAthletePos;
+    comp.type.bulky.athlete.imagePath= bulkAthleteImgPath;
+
+    comp.save( (err, data) => {
+        if (err) {
+            return console.error(err);
+        }
+    });
+});
 
 // [R]ead - get method
+router.get('/getData', function (req, res) {
+    Comp.find({}, function (err, data) {
+        if (err) {
+            return res.json({success: false, error: err })
+        } 
+        return res.json({ success: true, data:data });
+    })
+})
 
 // [U]pdate - update method
+router.post('/updateData', function (req, res) {
+    let { feet, inches } = req.body;
+    let height = parseInt(feet+'.'+inches);
+    Comp.findOneAndUpdate( {height: height}, {}, function (err, data) {
+        if (err) {
+            return res.json({success: false, error: err});
+        }
+        return res.json({success:true})
+    })
+})
 
 // [D]elete- delete method
+router.delete('/deleteData', function (req, res) {
+    let { feet, inches } = req.body;
+    let height = parseInt(feet+'.'+inches);
+    Comp.findOneAndDelete( {height: height}, function (err, data) {
+        if (err) {
+            return res.json({success: false, error: err});
+        }
+        return res.json ({ success: true });
+    });
+})
+
 
 // connect router to '/api' path
 app.use('/api', router);

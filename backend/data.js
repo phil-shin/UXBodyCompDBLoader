@@ -29,4 +29,8 @@ var compSchema = new Schema({
             }
         }
     }
-})
+});
+
+var Comp = mongoose.model('Comp', compSchema);
+
+module.exports = Comp;
