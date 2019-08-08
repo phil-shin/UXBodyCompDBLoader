@@ -74,9 +74,9 @@ router.get('/getData', function (req, res) {
 
 // [U]pdate - update method
 router.post('/updateData', function (req, res) {
-    let { feet, inches } = req.body;
+    let { feet, inches, field, update } = req.body;
     let height = parseInt(feet+'.'+inches);
-    Comp.findOneAndUpdate( {height: height}, {}, function (err, data) {
+    Comp.findOneAndUpdate( {height: height}, {[field]: update}, function (err, data) {
         if (err) {
             return res.json({success: false, error: err});
         }
