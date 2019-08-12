@@ -40,7 +40,7 @@ class App extends Component {
   // [C]reate database doc event handler
   createDoc = (feet, inches, lnWeight, lnAthName, lnAthPos, lnAthImgPath, 
     athWeight, athAthName, athAthPos, athAthImgPath, 
-    blkWeight, blkAthName, blkAthPos, blkAthImgPath) => {
+    blkWeight, blkAthName, blkAthPos, blkAthImgPath) => 
       axios.post('http://localhost:3001/api/createData', {
         feet: feet,
         inches: inches,
@@ -56,24 +56,53 @@ class App extends Component {
         bulkyAthleteName: blkAthName,
         bulkyAthletePosition: blkAthPos,
         bulkyAthleteImagePath: blkAthImgPath
-      })
-  };
+      });
 
   // [R]ead - Get all database data event handler
   getDataFromDB= () => {
     axios.get('http://localhost:3001/api/getData')
     .then((data) => this.setState({data : data}))
-    .catch((err) => console.log(err))
+    .catch((error) => console.log(error))
   };
 
   // [U]pdate database doc event handler
+  updateDoc = (feet, inches, field, update) => {
+    axios.post('http://localhost:3001/api/updateData', {
+      feet: feet,
+      inches: inches,
+      field: field,
+      update: update
+    })
+    .catch((error) => console.log(error));
+  };
 
   // [D]elete database doc event handler
+  deleteDoc = (feet, inches) => {
+    axios.delete('http://localhost:3001/api/deleteData', {
+      feet: feet,
+      inches: inches
+    })
+    .catch((error) => console.log(error))
+  };
+
 
   render() {
     return (
       <div>
-        <div className="create-container">
+        <div className="create-container" style={{padding: '10px'}}>
+          <input type="text" placeholder="Feet" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="Inches" onChange={(e)=> {}}></input><br></br>
+          <input type="text" placeholder="Lean Weight (lbs)" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="Lean Athlete Name" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="Lean Athlete Position" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
+          <input type="text" placeholder="create" onChange={(e)=> {}}></input>
           <input type="text" placeholder="create" onChange={(e)=> {}}></input>
           <button type="submit" value="Submit" onClick={(e)=>{}}></button>
         </div>
