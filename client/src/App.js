@@ -20,6 +20,8 @@ class App extends Component {
       blkAthNameToAdd: null,
       blkAthPosToAdd: null,
       blkAthImgPathToAdd: null,
+      ftToUpdate: null,
+      inToUpdate: null,
       fieldToUpdate: null,
       updateToApply: null,
       ftToDelete: null,
@@ -109,19 +111,38 @@ class App extends Component {
             this.state.lnWeightToAdd, this.state.lnAthNameToAdd, this.state.lnAthPosToAdd, this.state.lnAthImgPathToAdd, 
             this.state.athWeightToAdd, this.state.athAthNameToAdd, this.state.athAthPosToAdd, this.state.athAthImgPathToAdd, 
             this.state.blkWeightToAdd, this.state.blkAthNameToAdd, this.state.blkAthPosToAdd, this.state.blkAthImgPathToAdd
-          )}}></button>
+          )}}>Submit</button>
         </div>
         <div className="read-container">
           <input type="text" placeholder="read" onChange={(e)=>{}}></input>
-          <button type="submit" value="Submit" onClick={(e)=>{}}></button>
-        </div>
+          <button type="submit" value="Submit" onClick={(e)=>{}}>Submit</button>
+        </div> 
         <div className="update-container">
-          <input type="text" placeholder="update" onChange={(e)=>{}}></input>
-          <button type="submit" value="Submit" onClick={(e)=>{}}></button>
+          <input type="text" placeholder="Feet" onChange={(e)=>{this.setState({ftToUpdate: e.target.value})}}></input>
+          <input type="text" placeholder="Inches" onChange={(e) => {this.setState({inToUpdate: e.target.value})}}></input><br></br>
+          <select className="update-select" onChange={(e)=>{this.setState({fieldToUpdate: e.target.value})}}>
+            <option value="Lean Weight(lbs)">Lean Weight(lbs)</option>
+            <option value="Lean Athlete Name">Lean Athlete Name</option>
+            <option value="Lean Athlete Position">Lean Athlete Position</option>
+            <option value="Lean Athlete Image Path">Lean Athlete Image Path</option>
+            <option value="Athletic Weight(lbs)">Lean Weight(lbs)</option>
+            <option value="Athletic Athlete Name">Lean Athlete Name</option>
+            <option value="Athletic Athlete Position">Lean Athlete Position</option>
+            <option value="Athletic Athlete Image Path">Lean Athlete Image Path</option>
+            <option value="Bulky Weight(lbs)">Lean Weight(lbs)</option>
+            <option value="Bulky Athlete Name">Lean Athlete Name</option>
+            <option value="Bulky Athlete Position">Lean Athlete Position</option>
+            <option value="Bulky Athlete Image Path">Lean Athlete Image Path</option>
+          </select>
+          <input type="text" placeholder="Enter Updated Value" onChange={(e)=>{this.setState({updateToApply: e.target.value})}}></input>
+          <button type="submit" value="Submit" onClick={(e)=>{this.updateDoc(
+            this.state.ftToUpdate, this.state.inToUpdate, 
+            this.state.fieldToUpdate, this.state.updateToApply
+          )}}>Submit</button>
         </div>
         <div className="delete-container">
           <input type="text" placeholder="delete" onChange={(e)=>{}}></input>
-          <button type="submit" value="Submit" onClick={(e)=>{}}></button>
+          <button type="submit" value="Submit" onClick={(e)=>{}}>Submit</button>
         </div>
       </div>
     )
