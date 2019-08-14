@@ -1,0 +1,16 @@
+{
+  "name": "UXBodyCompDBLoader",
+  "version": "1.0.0",
+  "description": "MERN Stack app that provides an interface to load data for UXBodyComp app into its corresponding MongoDB database",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd backend && node server.js\" \"cd client && npm start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^4.1.1"
+  },
+  "devDependencies": {}
+}
