@@ -62,9 +62,10 @@ class App extends Component {
 
   // [R]ead - Get all database data event handler
   getDataFromDB= () => {
+    console.log('Fetching data...');
     axios.get('http://localhost:3001/api/getData')
     .then((res) => this.setState({data : res.data}))
-    .catch((error) => console.log(error))
+    .catch((error) => console.log(error));
   };
 
   // [U]pdate database doc event handler
