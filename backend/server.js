@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 var cors = require('cors');
 const logger = require('morgan');
 
-// import database mode
+// import database model
 var Comp = require('./data');
 
 // initialize port for backend
@@ -16,7 +16,7 @@ var app = express();
 var router = express.Router();
 
 // initialize mongoose - MongoDB connection
-mongoDBUrl='mongodb+srv://PBShin96:<password>@cluster0-wpdmo.mongodb.net/test?retryWrites=true&w=majority';
+mongoDBUrl='mongodb+srv://PBShin96:Klymber7210@cluster0-wpdmo.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDBUrl, {useNewUrlParser: true });
 
 // check for errors in mongoose connection
@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(logger('dev'));
 
-// [C]reate - create method
+// [C]reate - create data api call handler
 router.post('/createData', function (req, res) {
     const { feet, inches, 
     leanWeight, leanAthlete, leanAthletePos, leanAthleteImgPath,
@@ -61,7 +61,7 @@ router.post('/createData', function (req, res) {
     });
 });
 
-// [R]ead - get method
+// [R]ead - get data api call handler
 router.get('/getData', function (req, res) {
     Comp.find({}, function (err, data) {
         if (err) {
@@ -69,9 +69,9 @@ router.get('/getData', function (req, res) {
         } 
         return res.json({ success: true, data: data });
     })
-})
+});
 
-// [U]pdate - update method
+// [U]pdate - update data api call handler
 router.post('/updateData', function (req, res) {
     let { feet, inches, field, update } = req.body;
     let height = parseInt(feet+'.'+inches);
@@ -83,7 +83,7 @@ router.post('/updateData', function (req, res) {
     })
 })
 
-// [D]elete- delete method
+// [D]elete- delete data api call handler
 router.delete('/deleteData', function (req, res) {
     let { feet, inches } = req.body;
     let height = parseInt(feet+'.'+inches);
