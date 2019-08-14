@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 var cors = require('cors');
 const logger = require('morgan');
-const axios = require('axios');
 
 // import database mode
 var Comp = require('./data');
@@ -17,7 +16,7 @@ var app = express();
 var router = express.Router();
 
 // initialize mongoose - MongoDB connection
-mongoDBUrl='';
+mongoDBUrl='mongodb+srv://PBShin96:Klymber7210@cluster0-wpdmo.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDBUrl, {useNewUrlParser: true });
 
 // check for errors in mongoose connection
@@ -29,7 +28,7 @@ db.on ('error', console.error.bind(console, 'error connecting to database'))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan('dev'));
+app.use(logger('dev'));
 
 // [C]reate - create method
 router.post('/createData', function (req, res) {
@@ -68,7 +67,7 @@ router.get('/getData', function (req, res) {
         if (err) {
             return res.json({success: false, error: err })
         } 
-        return res.json({ success: true, data:data });
+        return res.json({ success: true, data: data });
     })
 })
 

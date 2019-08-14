@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-const Schema = mongooose.Schema();
+const Schema = mongoose.Schema;
 
 var compSchema = new Schema({
     height: Number,
