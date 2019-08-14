@@ -63,7 +63,7 @@ class App extends Component {
   // [R]ead - Get all database data event handler
   getDataFromDB= () => {
     axios.get('http://localhost:3001/api/getData')
-    .then((data) => this.setState({data : data}))
+    .then((res) => this.setState({data : res.data}))
     .catch((error) => console.log(error))
   };
 
@@ -111,12 +111,9 @@ class App extends Component {
             this.state.lnWeightToAdd, this.state.lnAthNameToAdd, this.state.lnAthPosToAdd, this.state.lnAthImgPathToAdd, 
             this.state.athWeightToAdd, this.state.athAthNameToAdd, this.state.athAthPosToAdd, this.state.athAthImgPathToAdd, 
             this.state.blkWeightToAdd, this.state.blkAthNameToAdd, this.state.blkAthPosToAdd, this.state.blkAthImgPathToAdd
-          )}}>Submit</button>
+          )}}>Create</button>
         </div>
-        <div className="read-container">
-          <input type="text" placeholder="read" onChange={(e)=>{}}></input>
-          <button type="submit" value="Submit" onClick={(e)=>{}}>Submit</button>
-        </div> 
+        
         <div className="update-container">
           <input type="text" placeholder="Feet" onChange={(e)=>{this.setState({ftToUpdate: e.target.value})}}></input>
           <input type="text" placeholder="Inches" onChange={(e) => {this.setState({inToUpdate: e.target.value})}}></input><br></br>
@@ -138,12 +135,34 @@ class App extends Component {
           <button type="submit" value="Submit" onClick={(e)=>{this.updateDoc(
             this.state.ftToUpdate, this.state.inToUpdate, 
             this.state.fieldToUpdate, this.state.updateToApply
-          )}}>Submit</button>
+          )}}>Update</button>
         </div>
         <div className="delete-container">
-          <input type="text" placeholder="delete" onChange={(e)=>{}}></input>
-          <button type="submit" value="Submit" onClick={(e)=>{}}>Submit</button>
+          <input type="text" placeholder="Feet to Delete" onChange={(e)=>{this.setState({ftToDelete: e.target.value})}}></input>
+          <input type="text" placeholder="Inches to Delete" onChange={(e)=>{this.setState({inToDelete: e.target.value})}}></input>
+          <button type="submit" value="Submit" onClick={(e)=>{this.deleteDoc(this.state.ftToDelete, this.state.inToDelete)}}>Delete</button>
         </div>
+        <div className="read-container">
+          <ul>
+            {this.state.data.length <=0 ? 'Database is empty.' : this.state.data.map((doc, index) => (
+              <li>
+                <h2>Data for Height: {doc.height}</h2><br></br>
+                <p>Lean Weight: {doc.type.lean.weight}</p><br></br>
+                <p>Lean Athlete: {doc.type.lean.athlete.name}</p><br></br>
+                <p>Lean Athlete Position: {doc.type.lean.athlete.position}</p><br></br>
+                <p>Lean Athlete Image Path: {doc.type.lean.athlete.imagePath}</p><br></br>
+                <p>Athletic Weight: {doc.type.athletic.weight}</p><br></br>
+                <p>Athletic Athlete: {doc.type.athletic.athlete.name}</p><br></br>
+                <p>Athletic Athlete Position: {doc.type.athletic.athlete.position}</p><br></br>
+                <p>Athletic Athlete Image Path: {doc.type.athletic.athlete.imagePath}</p><br></br>
+                <p>Bulky Weight: {doc.type.bulky.weight}</p><br></br>
+                <p>Bulky Athlete: {doc.type.bulky.athlete.name}</p><br></br>
+                <p>Bulky Athlete Position: {doc.type.bulky.athlete.position}</p><br></br>
+                <p>Bulky Athlete Image Path: {doc.type.bulky.athlete.imagePath}</p><br></br>
+              </li>
+            ))}
+          </ul>
+        </div> 
       </div>
     )
   };
