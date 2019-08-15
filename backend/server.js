@@ -16,7 +16,7 @@ var app = express();
 var router = express.Router();
 
 // initialize mongoose - MongoDB connection
-mongoDBUrl='mongodb+srv://PBShin96:Klymber7210@cluster0-wpdmo.mongodb.net/test?retryWrites=true&w=majority';
+mongoDBUrl='mongodb+srv://PBShin96:<password>@cluster0-wpdmo.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDBUrl, {useNewUrlParser: true });
 
 // check for errors in mongoose connection
